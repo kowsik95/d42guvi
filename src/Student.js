@@ -21,8 +21,7 @@ function Student() {
   }, []);
 
   let deleteStudent = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3003/student/${id}`);
+  
       swal({
         title: "Are you sure?",
         text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -31,6 +30,11 @@ function Student() {
         dangerMode: true,
       }).then((willDelete) => {
         if (willDelete) {
+            try {
+              await axios.delete(`http://localhost:3003/student/${id}`);
+               } catch (error) {
+      console.log(error);
+    }
           swal("Student has been deleted!", {
             icon: "success",
           });
@@ -38,9 +42,7 @@ function Student() {
           swal("Your file is safe!");
         }
       });
-    } catch (error) {
-      console.log(error);
-    }
+   
   };
 
   return (
